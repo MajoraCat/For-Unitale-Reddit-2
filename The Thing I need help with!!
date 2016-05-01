@@ -1,0 +1,47 @@
+Down below is the code! Don't ask I am trying to make a kinda cat ver of napstablook!
+-- A basic monster script skeleton you can copy and modify for your own creations.
+comments = {"Smells like \rMTT Brand Majik Catnip.", "The cat is weeping... \rthis is sad!", "The cat is trying not to\rcry!"}
+commands = {"Pet", "Feed", "Hug"}
+randomdialogue = {"[voice:meow][effect:shake]*Weeping* \nI hope I\nfind a\nowner.. \na nice\none!", "[voice:meow][effect:shake]Why...", "[voice:meow][effect:shake]SOMEBODY \nHELP ME!"}
+currentdialogue = {'[voice:meow][effect:shake]*sniffles*\n Me..owww'}
+
+sprite = "MagicSpaceCat" --Always PNG. Extension is added automatically.
+name = "A Magic Space Cat"
+hp = 300	
+atk = 2
+def = 5
+check = "He is very lonely and depressed...\r how horrible"
+dialogbubble = "right" -- See documentation for what bubbles you have available.
+cancheck = true
+canspare = true
+function HandleAttack(attackstatus)
+    if attackstatus == -1 then
+        currentdialogue = {"[voice:meow]I know\nI'm sad\nbut\nyour aim...\nHORRIBLE!"}
+    else
+        if hp > 50 then
+            currentdialogue = {"[voice:meow][effect:shake]OW! Why!"}
+        else
+            currentdialogue = {"[voice:meow]Too\nstrong"}
+        end
+function HandleCustomCommand(command)
+    if command == "PET" then
+        if spare == 0 then
+            currentdialogue = {"[voice:meow]Huh?"}
+            BattleDialog({"You pet the cat."})
+        elseif spare == 1 then
+            currentdialogue = {"[voice:meow]Thank\nyou!"}
+            BattleDialog({"You pet the cat more."})
+        elseif spare == 2 then
+            table.insert(comments, "The cat is feeling happier!")
+            currentdialogue = {"[voice:meow]Maybe\nyou\nare my\nnew\nowner?"}
+            BattleDialog({"The cat is happy with\ryou petting it!"})
+        posecount = posecount + 1
+    elseif command == "FEED" then
+        if spare == 0 then
+        currentdialogue = {"[voice:meow]*crunch*\nThis is\n*crunch*\nyummy!"}
+        BattleDialog({"You feed the cat Meow Mix brand \rcat food!"})
+    elseif command == "HUG" then
+        if spare == 0 then
+        currentdialogue = {"[voice:meow] :')."}
+        BattleDialog({"You hug the cat\rit seems more calm."})
+       end
